@@ -1,6 +1,7 @@
 package is.reon.datahack2018.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -14,6 +15,8 @@ import me.digi.sdk.core.session.CASession;
 
 public class DataConnectActivity extends Activity {
 
+    private int filecount;
+    private int filesprocessed = 0;
     private final String TAG = "DataConnectActivity";
 
     @Override
@@ -25,8 +28,8 @@ public class DataConnectActivity extends Activity {
         DigiMeClient.getInstance().authorize(this, new SDKCallback<CASession>() {
             @Override
             public void succeeded(SDKResponse<CASession> result) {
-                Log.d(TAG, "succeeded: "+result.response.message());
-                fetchData();
+                Log.d(TAG, "succeeded: authorize");
+
             }
 
             @Override
@@ -43,13 +46,19 @@ public class DataConnectActivity extends Activity {
                 Log.d(TAG, "succeeded: file list");
                 CAFiles files = result.body;
                 if(files!=null && files.fileIds != null){
+                    filecount = files.fileIds.size();
                     for(String id: files.fileIds) {
                         DigiMeClient.getInstance().getFileJSON(id, new SDKCallback<JsonElement>()
                         {
                             @Override
                             public void succeeded(SDKResponse<JsonElement> sdkResponse)
                             {
-                                Log.d(TAG, "succeeded: "+sdkResponse.body.getAsString());
+                                filesprocessed++;
+                                Log.d(TAG, "succeeded: "+sdkResponse.body.toString());
+                                Log.d(TAG, "processing  "+filesprocessed+"/"+filecount);
+                                if(filesprocessed==filecount)
+                                    onBackPressed();
+
                             }
 
                             @Override
@@ -67,5 +76,12 @@ public class DataConnectActivity extends Activity {
                 //Handle exception or error response
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        DigiMeClient.getInstance().getAuthManager().onActivityResult(requestCode, resultCode, data);
+        fetchData();
     }
 }
