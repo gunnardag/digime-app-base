@@ -82,6 +82,7 @@ public class DataConnectActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         DigiMeClient.getInstance().getAuthManager().onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: got resultcode"+resultCode);
         fetchData();
     }
 }
