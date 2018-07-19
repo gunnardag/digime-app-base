@@ -47,7 +47,7 @@ public class DataConnectActivity extends Activity {
                 CAFiles files = result.body;
                 if(files!=null && files.fileIds != null){
                     filecount = files.fileIds.size();
-                    for(String id: files.fileIds) {
+                    for(final String id: files.fileIds) {
                         DigiMeClient.getInstance().getFileJSON(id, new SDKCallback<JsonElement>()
                         {
                             @Override
@@ -56,6 +56,7 @@ public class DataConnectActivity extends Activity {
                                 filesprocessed++;
                                 Log.d(TAG, "succeeded: "+sdkResponse.body.toString());
                                 Log.d(TAG, "processing  "+filesprocessed+"/"+filecount);
+                                Log.d(TAG, "id: "+id);
                                 if(filesprocessed==filecount)
                                     onBackPressed();
 

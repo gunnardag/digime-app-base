@@ -3,20 +3,15 @@ package is.reon.datahack2018.objects.wearables;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
-
 import io.realm.RealmList;
-import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import is.reon.datahack2018.objects.DigiRealmObject;
 
 /**
  * Created by gunnar on 26.3.2018.
  */
 
-public class WearableSleep extends RealmObject {
-
-    @PrimaryKey
-    public long id;
+public class WearableSleep extends DigiRealmObject {
 
     @Expose
     @SerializedName("accountentityid")
@@ -113,8 +108,10 @@ public class WearableSleep extends RealmObject {
         Type = type;
     }
 
-    public WearableSleep(long id, String accountEntityId, long createdDate, long duration, int efficientcy, long endDate, String entityId, int infoCode, boolean isMainSleep, long measurementId, RealmList<SleepLevel> levels, SleepSummaryObject summary, int minutesAfterWakeup, int minutesAsleep, int minutesAwake, int minutesToFallAsleep, long startDate, int timeInBed, String type) {
+    public WearableSleep(int id, int digiDataSource, int digiDataSourceNumber, String accountEntityId, long createdDate, long duration, int efficientcy, long endDate, String entityId, int infoCode, boolean isMainSleep, long measurementId, RealmList<SleepLevel> levels, SleepSummaryObject summary, int minutesAfterWakeup, int minutesAsleep, int minutesAwake, int minutesToFallAsleep, long startDate, int timeInBed, String type) {
         this.id = id;
+        this.digiDataSource = digiDataSource;
+        this.digiDataSourceNumber = digiDataSourceNumber;
         AccountEntityId = accountEntityId;
         CreatedDate = createdDate;
         Duration = duration;
@@ -135,13 +132,6 @@ public class WearableSleep extends RealmObject {
         Type = type;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getAccountEntityId() {
         return AccountEntityId;
@@ -151,8 +141,14 @@ public class WearableSleep extends RealmObject {
         AccountEntityId = accountEntityId;
     }
 
+    @Override
     public long getCreatedDate() {
         return CreatedDate;
+    }
+
+    @Override
+    public String getName() {
+        return String.valueOf(Duration);
     }
 
     public void setCreatedDate(long createdDate) {
