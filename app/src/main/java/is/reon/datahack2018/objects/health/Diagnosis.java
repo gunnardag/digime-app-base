@@ -5,12 +5,41 @@ import com.google.gson.annotations.SerializedName;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import is.reon.datahack2018.R;
+import is.reon.datahack2018.objects.DigiObjectInterface;
+import is.reon.datahack2018.util.DigiDateUtil;
 
 /**
  * Created by gunnar on 6.3.2018.
  */
 
-public class Diagnosis extends RealmObject {
+public class Diagnosis extends RealmObject implements DigiObjectInterface {
+
+
+    @Override
+    public long getSortableDate() {
+        return CreatedDate;
+    }
+
+    @Override
+    public String getSortableName() {
+        return Name;
+    }
+
+    @Override
+    public int getListIconDrawable() {
+        return R.drawable.diagnosis_icon;
+    }
+
+    @Override
+    public String getListTitle() {
+        return Name;
+    }
+
+    @Override
+    public String getListSubtitle() {
+        return DigiDateUtil.getReadableDateStringFromLong(CreatedDate);
+    }
 
     @PrimaryKey
     public long id;
@@ -42,6 +71,14 @@ public class Diagnosis extends RealmObject {
     @Expose
     @SerializedName("entityid")
     public String EntityId;
+
+    @Expose
+    @SerializedName("accountentityid")
+    public String AccountEntityId;
+
+    @Expose
+    @SerializedName("category")
+    public Category category;
 
     public Diagnosis(){}
 

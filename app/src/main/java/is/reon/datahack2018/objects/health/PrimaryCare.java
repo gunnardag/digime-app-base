@@ -5,8 +5,37 @@ import com.google.gson.annotations.SerializedName;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import is.reon.datahack2018.R;
+import is.reon.datahack2018.objects.DigiObjectInterface;
+import is.reon.datahack2018.util.DigiDateUtil;
 
-public class PrimaryCare extends RealmObject {
+public class PrimaryCare extends RealmObject implements DigiObjectInterface {
+
+
+    @Override
+    public long getSortableDate() {
+        return CreatedDate;
+    }
+
+    @Override
+    public String getSortableName() {
+        return DepartmentOrgName;
+    }
+
+    @Override
+    public int getListIconDrawable() {
+        return R.drawable.primary_care_icon;
+    }
+
+    @Override
+    public String getListTitle() {
+        return DepartmentOrgName;
+    }
+
+    @Override
+    public String getListSubtitle() {
+        return DigiDateUtil.getReadableDateStringFromLong(CreatedDate);
+    }
 
     @PrimaryKey
     public long id;

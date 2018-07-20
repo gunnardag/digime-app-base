@@ -5,12 +5,41 @@ import com.google.gson.annotations.SerializedName;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import is.reon.datahack2018.R;
+import is.reon.datahack2018.objects.DigiObjectInterface;
+import is.reon.datahack2018.util.DigiDateUtil;
 
 /**
  * Created by gunnar on 6.3.2018.
  */
 
-public class Prescription extends RealmObject {
+public class Prescription extends RealmObject implements DigiObjectInterface {
+
+
+    @Override
+    public long getSortableDate() {
+        return CreatedDate;
+    }
+
+    @Override
+    public String getSortableName() {
+        return PrescribedItems;
+    }
+
+    @Override
+    public int getListIconDrawable() {
+        return R.drawable.prescriptions_icon;
+    }
+
+    @Override
+    public String getListTitle() {
+        return PrescribedItems;
+    }
+
+    @Override
+    public String getListSubtitle() {
+        return DigiDateUtil.getReadableDateStringFromLong(CreatedDate);
+    }
 
     @PrimaryKey
     public long realm_id;

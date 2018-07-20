@@ -4,14 +4,27 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import io.realm.RealmList;
+import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
-import is.reon.datahack2018.objects.DigiRealmObject;
+import is.reon.datahack2018.objects.DigiObjectInterface;
 
 /**
  * Created by gunnar on 26.3.2018.
  */
 
-public class WearableSleep extends DigiRealmObject {
+public class WearableSleep extends RealmObject implements DigiObjectInterface {
+
+
+    @PrimaryKey
+    public int id;
+
+    @Expose
+    @SerializedName("digiDataSource")
+    public int digiDataSource;
+
+    @Expose
+    @SerializedName("digiDataSource")
+    public int digiDataSourceNumber;
 
     @Expose
     @SerializedName("accountentityid")
@@ -133,13 +146,6 @@ public class WearableSleep extends DigiRealmObject {
     }
 
 
-    public String getAccountEntityId() {
-        return AccountEntityId;
-    }
-
-    public void setAccountEntityId(String accountEntityId) {
-        AccountEntityId = accountEntityId;
-    }
 
     @Override
     public long getCreatedDate() {
@@ -151,8 +157,40 @@ public class WearableSleep extends DigiRealmObject {
         return String.valueOf(Duration);
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getDigiDataSource() {
+        return digiDataSource;
+    }
+
+    public void setDigiDataSource(int digiDataSource) {
+        this.digiDataSource = digiDataSource;
+    }
+
+    public int getDigiDataSourceNumber() {
+        return digiDataSourceNumber;
+    }
+
+    public void setDigiDataSourceNumber(int digiDataSourceNumber) {
+        this.digiDataSourceNumber = digiDataSourceNumber;
+    }
+
     public void setCreatedDate(long createdDate) {
         CreatedDate = createdDate;
+    }
+
+    public String getAccountEntityId() {
+        return AccountEntityId;
+    }
+
+    public void setAccountEntityId(String accountEntityId) {
+        AccountEntityId = accountEntityId;
     }
 
     public long getDuration() {

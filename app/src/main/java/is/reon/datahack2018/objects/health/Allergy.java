@@ -5,19 +5,52 @@ import com.google.gson.annotations.SerializedName;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import is.reon.datahack2018.R;
+import is.reon.datahack2018.objects.DigiObjectInterface;
+import is.reon.datahack2018.util.DigiDateUtil;
 
 /**
  * Created by gunnar on 6.3.2018.
  */
 
-public class Allergy extends RealmObject {
+public class Allergy extends RealmObject implements DigiObjectInterface {
+
+
+    @Override
+    public long getSortableDate() {
+        return CreatedDate;
+    }
+
+    @Override
+    public String getSortableName() {
+        return Type;
+    }
+
+    @Override
+    public int getListIconDrawable() {
+        return R.drawable.allergies_icon;
+    }
+
+    @Override
+    public String getListTitle() {
+        return Type;
+    }
+
+    @Override
+    public String getListSubtitle() {
+        return DigiDateUtil.getReadableDateStringFromLong(CreatedDate);
+    }
 
     @PrimaryKey
     public long id;
 
     @Expose
-    @SerializedName("id")
+    @SerializedName("entityid")
     public String AllergyId;
+
+    @Expose
+    @SerializedName("accountentityid")
+    public String AccountEntityId;
 
     @Expose
     @SerializedName("type")
@@ -30,6 +63,18 @@ public class Allergy extends RealmObject {
     @Expose
     @SerializedName("component")
     public String Component;
+
+    @Expose
+    @SerializedName("criticality")
+    public String Criticality;
+
+    @Expose
+    @SerializedName("practitioner")
+    public PractitionerObject Practitioner;
+
+    @Expose
+    @SerializedName("status")
+    public String Status;
 
     @Expose
     @SerializedName("comment")
@@ -120,5 +165,37 @@ public class Allergy extends RealmObject {
 
     public void setEntityId(String entityId) {
         EntityId = entityId;
+    }
+
+    public String getAccountEntityId() {
+        return AccountEntityId;
+    }
+
+    public void setAccountEntityId(String accountEntityId) {
+        AccountEntityId = accountEntityId;
+    }
+
+    public String getCriticality() {
+        return Criticality;
+    }
+
+    public void setCriticality(String criticality) {
+        Criticality = criticality;
+    }
+
+    public PractitionerObject getPractitioner() {
+        return Practitioner;
+    }
+
+    public void setPractitioner(PractitionerObject practitioner) {
+        Practitioner = practitioner;
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
     }
 }

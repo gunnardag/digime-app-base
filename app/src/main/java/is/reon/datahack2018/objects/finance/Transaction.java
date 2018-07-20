@@ -1,108 +1,183 @@
 package is.reon.datahack2018.objects.finance;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import is.reon.datahack2018.objects.DigiRealmObject;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.RealmClass;
+import is.reon.datahack2018.R;
+import is.reon.datahack2018.objects.DigiObjectInterface;
 
 /**
  * Created by gunnar on 23.3.2018.
  */
 
-public class Transaction extends DigiRealmObject {
+@RealmClass
+public class Transaction extends RealmObject implements DigiObjectInterface {
 
+
+    @Override
+    public long getSortableDate() {
+        return transactiondate;
+    }
+
+    @Override
+    public String getSortableName() {
+        return String.valueOf(amount);
+    }
+
+    @Override
+    public int getListIconDrawable() {
+        return R.drawable.glycomic_icon;
+    }
+
+    @Override
+    public String getListTitle() {
+        return null;
+    }
+
+    @Override
+    public String getListSubtitle() {
+        return null;
+    }
+
+    @PrimaryKey
+    public int id;
+
+    @Expose
+    @SerializedName("digiDataSource")
+    public int digiDataSource;
+
+    @Expose
+    @SerializedName("digiDataSource")
+    public int digiDataSourceNumber;
+
+    @Expose
     @SerializedName("accountentityid")
     public String accountentityid;
 
+    @Expose
     @SerializedName("amount")
     public float amount;
 
+    @Expose
     @SerializedName("basetype")
     public String basetype;
 
+    @Expose
     @SerializedName("category")
     public String category;
 
+    @Expose
     @SerializedName("categoryid")
     public int categoryid;
 
+    @Expose
     @SerializedName("categorysource")
     public String categorysource;
 
+    @Expose
     @SerializedName("categorytype")
     public String categorytype;
 
+    @Expose
     @SerializedName("checknumber")
     public String checknumber;
 
+    @Expose
     @SerializedName("consumerref")
     public String consumerref;
 
+    @Expose
     @SerializedName("createddate")
     public long createddate;
 
+    @Expose
     @SerializedName("currency")
     public String currency;
 
+    @Expose
     @SerializedName("entityid")
     public String entityid;
 
+    @Expose
     @SerializedName("highlevelcategoryid")
     public int highlevelcategoryid;
 
+    @Expose
     @SerializedName("id")
     public String transactionId;
 
+    @Expose
     @SerializedName("ismanual")
     public boolean isManual;
 
+    @Expose
     @SerializedName("merchantaddress1")
     public String merchantaddress1;
 
+    @Expose
     @SerializedName("merchantaddress2")
     public String merchantaddress2;
 
+    @Expose
     @SerializedName("merchantcity")
     public String merchantcity;
 
+    @Expose
     @SerializedName("merchantcountry")
     public String merchantcountry;
 
+    @Expose
     @SerializedName("merchantid")
     public String merchantid;
 
+    @Expose
     @SerializedName("merchantname")
     public String merchantname;
 
+    @Expose
     @SerializedName("merchantstate")
     public String merchantstate;
 
+    @Expose
     @SerializedName("merchantzip")
     public String merchantzip;
 
+    @Expose
     @SerializedName("originalref")
     public String originalref;
 
+    @Expose
     @SerializedName("postdate")
     public long postdate;
 
+    @Expose
     @SerializedName("runningbalance")
     public float runningbalance;
 
+    @Expose
     @SerializedName("runningbalancecurrency")
     public String runningbalancecurrency;
 
+    @Expose
     @SerializedName("simpleref")
     public String simpleref;
 
+    @Expose
     @SerializedName("status")
     public String status;
 
+    @Expose
     @SerializedName("subtype")
     public String subtype;
 
+    @Expose
     @SerializedName("transactiondate")
     public long transactiondate;
 
+    @Expose
     @SerializedName("type")
     public String type;
 
@@ -182,15 +257,28 @@ public class Transaction extends DigiRealmObject {
         this.type = type;
     }
 
-
-    @Override
-    public long getCreatedDate() {
-        return transactiondate;
+    public int getId() {
+        return id;
     }
 
-    @Override
-    public String getName() {
-        return String.valueOf(amount);
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getDigiDataSource() {
+        return digiDataSource;
+    }
+
+    public void setDigiDataSource(int digiDataSource) {
+        this.digiDataSource = digiDataSource;
+    }
+
+    public int getDigiDataSourceNumber() {
+        return digiDataSourceNumber;
+    }
+
+    public void setDigiDataSourceNumber(int digiDataSourceNumber) {
+        this.digiDataSourceNumber = digiDataSourceNumber;
     }
 
     public String getAccountentityid() {

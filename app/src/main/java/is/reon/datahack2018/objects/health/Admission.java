@@ -5,12 +5,47 @@ import com.google.gson.annotations.SerializedName;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import is.reon.datahack2018.R;
+import is.reon.datahack2018.objects.DigiObjectInterface;
+import is.reon.datahack2018.util.DigiDateUtil;
 
 /**
  * Created by gunnar on 13.2.2018.
  */
 
-public class Admission extends RealmObject {
+/**
+ * Admission Object
+ * Sortable by CreatedDate and Organization
+ * Title is Organization
+ * Subtitle is the CreationDate
+ */
+public class Admission extends RealmObject implements DigiObjectInterface {
+
+
+    @Override
+    public long getSortableDate() {
+        return CreatedDate;
+    }
+
+    @Override
+    public String getSortableName() {
+        return Organization;
+    }
+
+    @Override
+    public int getListIconDrawable() {
+        return R.drawable.admissions_icon;
+    }
+
+    @Override
+    public String getListTitle() {
+        return Organization;
+    }
+
+    @Override
+    public String getListSubtitle() {
+        return DigiDateUtil.getReadableDateStringFromLong(CreatedDate);
+    }
 
     @PrimaryKey
     public long id;
